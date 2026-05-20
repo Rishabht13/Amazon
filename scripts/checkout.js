@@ -1,15 +1,15 @@
-import {cart,removeFromCart} from "../data/cart.js";
-import {products} from "../data/products.js";
-let cartItemsHTML = '';
+import { cart, removeFromCart } from "../data/cart.js";
+import { products } from "../data/products.js";
+let cartItemsHTML = "";
 cart.forEach((cartItem) => {
-    const productid = cartItem.Id;
-    let matchedProduct;
-    products.forEach((product) => {
-      if (product.id === productid) {
-        matchedProduct = product;
-      }});
-        cartItemsHTML +=
-    `<div class="cart-item-container container-${matchedProduct.id}">
+  const productid = cartItem.Id;
+  let matchedProduct;
+  products.forEach((product) => {
+    if (product.id === productid) {
+      matchedProduct = product;
+    }
+  });
+  cartItemsHTML += `<div class="cart-item-container container-${matchedProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -83,17 +83,16 @@ cart.forEach((cartItem) => {
                 </div>
               </div>
             </div>
-          </div>`; 
+          </div>`;
 });
 document.querySelector(".order-summary").innerHTML = cartItemsHTML;
 
 document.querySelectorAll(".delete-quantity-link").forEach((link) => {
-    link.addEventListener("click", () => {
-        const productId = link.dataset.productId;
-        removeFromCart(productId);
-        const container = document.querySelector(`.container-${productId}`);
-        container.remove();
-        
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
+    const container = document.querySelector(`.container-${productId}`);
 
-    });
+    container.remove();
+  });
 });

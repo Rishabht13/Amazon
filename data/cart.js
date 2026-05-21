@@ -18,6 +18,7 @@ export function addToCart(productId) {
     cart.push({
       Id: productId,
       quantity: 1,
+      deliveryOptionsId: '1',
     });
   }
   saveToLocalStorage();
@@ -31,4 +32,14 @@ export function removeFromCart(productId) {
   });
   cart = newCart;
   saveToLocalStorage();
+}
+export function updateDeliveryOption(productId, optionId) { 
+  let matchedcartItem;
+  cart.forEach((cartItem) => {
+    if (cartItem.Id === productId) {
+      matchedcartItem = cartItem;
+    }
+  });
+matchedcartItem.deliveryOptionsId = optionId;
+saveToLocalStorage();
 }

@@ -1,6 +1,7 @@
 import { cart } from "../data/cart.js";
 import { getProduct } from "../data/products.js";
 import { getDeliveryOption } from "../data/deliveryOptions.js";
+import {addOrder} from "../data/orders.js";
  
  export function renderPayment(){
     let productPrice = 0;
@@ -34,4 +35,27 @@ import { getDeliveryOption } from "../data/deliveryOptions.js";
             Place your order
           </button>`;
           document.querySelector(".payment-summary").innerHTML = paymentSummaryHTML;
-}
+
+document.querySelector('.place-order-button')
+.addEventListener("click",async () => {
+  try{
+ const response = await fetch('https://supersimplebackend.dev/orders',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+            cart : cart,
+          }),
+      });
+     const order = await response.json();
+      addOrder(order);
+
+  }catch(error){
+    console.error("Error placing order");
+  }
+  
+  window.location.href = 'orders.html';
+})
+ }
